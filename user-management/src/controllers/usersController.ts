@@ -2,17 +2,10 @@ import bcrypt from "bcrypt";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { 
 	registerUser, 
-	register42User,
-	registerTime, 
-	changeUsername, 
 	changeEmail,
 	changePassword,
-	getUserByUsername, 
 	getUserById, 
 	getUserByEmail, 
-	getUserAvatar,
-	avatarUploader,
-	avatarDeleter,
 	userRemover
 } from "../services/usersService";
 
@@ -20,10 +13,6 @@ export async function registerController(req: FastifyRequest, reply: FastifyRepl
 	const { email, username, password } = req.body as { email: string; username: string; password: string };
 
 	try {
-
-		const userName = await getUserByUsername(username);
-		if (userName)
-			throw new Error("Username already exists");
 
 		const userEmail = await getUserByEmail(email);
 		if (userEmail)
@@ -94,7 +83,7 @@ export async function passwordControl(req: FastifyRequest, reply: FastifyReply) 
 	const { username, password } = req.body as { username: string; password: string };
 
 	try {
-		const user = await getUserByUsername(username);
+		const user = await getUserById(1);
 		if (!user.id) 
 			throw new Error("User not found");
 		const valid = await bcrypt.compare(password, user.password);
@@ -162,10 +151,6 @@ export async function removeUser(req: FastifyRequest, reply: FastifyReply) {
 	const userId = req.headers["x-user-id"];
 
 	try {
-		const avatar = await getUserAvatar(userId);
-		if (avatar) {
-			await avatarDeleter(userId);
-		}
 		userRemover(userId);
 		return reply.send({ message: "User removed successfully" });
 	}

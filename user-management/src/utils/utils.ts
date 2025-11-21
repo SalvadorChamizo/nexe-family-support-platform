@@ -1,4 +1,4 @@
-import db from "../db";
+import db from "../db/sqlite";
 import bcrypt from "bcrypt";
 
 export function initAdmin() {
@@ -10,7 +10,7 @@ export function initAdmin() {
     const passwordHash = bcrypt.hashSync("Admin123!", 10); // temporary password
 
     db.prepare(`
-      INSERT INTO users (email, password_hash, role)
+      INSERT INTO users (email, password, role)
       VALUES (?, ?, ?)
     `).run("admin@system.local", passwordHash, "admin");
 

@@ -3,7 +3,6 @@ import multipart from "@fastify/multipart";
 import { initAdmin } from "./utils/utils";
 
 import usersRoutes from "./routes/usersRoutes";
-import { removeInactiveUsers } from "./repositories/usersRepository";
 
 const app = Fastify({ logger: true });
 
