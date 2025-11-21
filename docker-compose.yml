@@ -12,7 +12,8 @@ services:
     ports:
       - "5173:5173"
     volumes:
-      - frontend_dist:/app/dist
+      - ./frontend:/app
+      - /app/node_modules
     depends_on:
       - gateway
     networks:
@@ -57,7 +58,7 @@ networks:
   backend:
     name: backend
     driver: bridge
-  
+
   frontend:
     name: frontend
     driver: bridge
