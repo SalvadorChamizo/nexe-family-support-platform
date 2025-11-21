@@ -1,20 +1,151 @@
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow-x: hidden;
-  background: rgb(41, 56, 224);
+:root {
+    --background: #028090;
+    --foreground: white;
+    --primary: #05668d;
+    --secondary: #FBD784;
+    /* --normalFontWeight: 300; */
+    --normalFontSize: 14px;
+    /* --primaryfontFamily: 'Inter', serif; */
+    --formalFont1: 'Sans Serif', Arial, sans-serif;
+    --normalLineHight: 32px;
+}
+
+/* Other colors 
+
+#02c39a
+#00a896
+
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.font-roboto {
+    font-family: 'Sans Serif', Arial, sans-serif;
+}
+
+.info-card-flex-row-reverse {
+    flex-direction: row-reverse!important;
+}
+
+.right-500px{
+    right: 500px!important;
+}
+
+.left-auto{
+    left: auto!important;
+}
+
+.opacity-0{
+    opacity: 0!important;
+}
+.opacity-1{
+    opacity: 0!important;
+}
+
+/* For Selection-color, Highlight-color */
+*::-moz-selection {
+    /* Code for Firefox */
+    color: var(--secondary);
+    background: transparent;
+}
+
+*::selection {
+    color: var(--secondary);
+    background: transparent;
 }
 
 html {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+    scroll-behavior: smooth;
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  display:flex;
-  flex-direction: column;
+    color: var(--foreground);
+    background-color: var(--background);
+}
+
+/* ******************************** */
+/*              Header              */
+/* ******************************** */
+
+/* Navbar styles - Start */
+nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    padding: 30px 80px 0px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 32px;
+    font-family: serif;
+}
+
+.nav-items {
+    font-family: var(--formalFont1);
+    display: flex;
+    gap: 40px;
+    list-style: none;
+}
+
+.nav-items a,
+.footer-navlinks ul a {
+    font-size: var(--normalFontSize);
+    line-height: var(--normalLineHight);
+    font-family: var(--formalFont1);
+    color: var(--foreground);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 80ms linear;
+    transition: transform 150ms linear;
+    display: inline-block;
+    font-weight: 600;
+}
+
+.nav-items a:hover,
+.footer-navlinks ul a:hover,
+.userAccount a:hover {
+    color: var(--secondary) !important;
+}
+
+.nav-items a:hover {
+    transform: translateY(-3px);
+}
+
+nav .userAccount a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--foreground);
+    text-decoration: none;
+    transition: color 80ms linear;
+    transition: all 80ms linear;
+    cursor: pointer;
+}
+
+nav .userAccount a svg path {
+    fill: var(--foreground);
+    transition: fill 80ms linear;
+}
+
+nav .userAccount a:hover svg path {
+    fill: var(--secondary);
+}
+
+/* .logo, .userAccount{
+    font-family: "Roboto", sans-serif;
+} */
+
+/* Navbar styles - End */
+
+.hidden {
+  display: none;
 }
