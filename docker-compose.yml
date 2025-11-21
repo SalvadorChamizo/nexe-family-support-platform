@@ -8,15 +8,15 @@ services:
   frontend-dev:
     build:
       context: ./frontend
-      dockerfile: Dockerfile
-    port:
+      dockerfile: Dockerfile.dev
+    ports:
       - "5173:5173"
     volumes:
       - frontend_dist:/app/dist
     depends_on:
       - gateway
     networks:
-      - backend
+      - frontend
 
   gateway:
     build: ./gateway
@@ -29,6 +29,7 @@ services:
       - auth-service
     networks:
       - backend
+      - frontend
 
   auth-service:
     build: ./auth-service
@@ -42,7 +43,7 @@ services:
       - backend
 
   user-management-service:
-    build: ./user-managment
+    build: ./user-management
     expose:
       - "8082"
     depends_on:
@@ -55,6 +56,10 @@ services:
 networks:
   backend:
     name: backend
+    driver: bridge
+  
+  frontend:
+    name: frontend
     driver: bridge
 
 volumes:
