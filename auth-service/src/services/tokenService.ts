@@ -2,18 +2,17 @@ import jwt from "jsonwebtoken"
 import { RefreshTokenRepository } from "../repositories/refreshTokenRepository"
 import { v4 as uuid } from "uuid";
 
-export function generateAccessToken(user: { id: number; username: string; }) {
+export function generateAccessToken(user: { id: number; email: string; role: string }) {
     return jwt.sign(
-        { id: user.id, username: user.username },
+        { id: user.id, email: user.email, role: user.role },
     process.env.JWT_SECRET as string,
     { expiresIn: "1h" }
     );
 }
 
-export function generateRefreshToken(user: { id: number; username: string }) {
-    console.log(`username: ${user.username}`)
+export function generateRefreshToken(user: { id: number; email: string; role: string }) {
     return jwt.sign(
-        { id: user.id, username: user.username, jti: uuid() },
+        { id: user.id, email: user.email, role: user.role, jti: uuid() },
     process.env.REFRESH_SECRET as string,
     { expiresIn: "7d" }
     );
@@ -23,13 +22,15 @@ export function verifyRefreshToken(token: string) {
     try {
         const decoded = jwt.verify(token, process.env.REFRESH_SECRET as string) as {
             id: string;
-            username: string;
+            email: string;
+            role: string
             jti: string;
         };
 
         return {
             id: parseInt(decoded.id, 10),
-            username: decoded.username,
+            email: decoded.email,
+            role: decoded.role,
             jti: decoded.jti,
         };
     } catch (err) {
@@ -52,8 +53,8 @@ export function rotateTokens(refreshToken: string) {
         throw new Error("Expired token");
     }
 
-    const newAccessToken = generateAccessToken({ username: decoded.username, id: decoded.id });
-    const newRefreshToken = generateRefreshToken({ username: decoded.username, id: decoded.id });
+    const newAccessToken = generateAccessToken({ email: decoded.email, id: decoded.id, role: decoded.role });
+    const newRefreshToken = generateRefreshToken({ email: decoded.email, id: decoded.id, role: decoded.role });
 
     const gracePeriodMs = 30 * 1000;
     refreshTokenRepo.updateGracePeriod(refreshToken, Date.now() + gracePeriodMs);

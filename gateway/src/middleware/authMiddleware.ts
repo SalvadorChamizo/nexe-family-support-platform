@@ -42,11 +42,12 @@ export async function authMiddleware(req: FastifyRequest, reply: FastifyReply) {
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as {
             id: string;
-            username: string;
+            email: string;
+            role: string;
             iat?: number;
             exp?: number;
         };
-        console.log(`[Auth Middleware] Token validated successfully for user: ${decoded.username}`);
+        console.log(`[Auth Middleware] Token validated successfully for user: ${decoded.email}`);
 
         req.user = decoded;
 
@@ -55,8 +56,11 @@ export async function authMiddleware(req: FastifyRequest, reply: FastifyReply) {
         if (!req.headers["x-user-id"]) {
             req.headers["x-user-id"] = decoded.id;
         }
-        if (!req.headers["x-username"]) {
-            req.headers["x-username"] = decoded.username;
+        if (!req.headers["x-email"]) {
+            req.headers["x-email"] = decoded.email;
+        }
+        if (!req.headers["x-role"]) {
+            req.headers["x-role"] = decoded.role;
         }
 
     }   catch (err) {
