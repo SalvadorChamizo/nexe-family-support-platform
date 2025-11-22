@@ -86,6 +86,9 @@ nav {
 .logo {
     font-size: 32px;
     font-family: serif;
+    color: var(--foreground);
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .nav-items {
@@ -148,4 +151,15 @@ nav .userAccount a:hover svg path {
 
 .hidden {
   display: none;
+}
+
+/* ******************************** */
+/*              Home                */
+/* ******************************** */
+
+#app p {
+
+    max-width: 300px;
+    right: 1rem;
+    margin-top: 12rem;
 }
