@@ -4,7 +4,8 @@ export async function render() {
 
     const app = document.getElementById("app");
     if (app) {
-        app.innerHTML = router(window.location.hash);
+        const route = window.location.hash.slice(1);
+        app.innerHTML = router(route);
     }
 }
 
