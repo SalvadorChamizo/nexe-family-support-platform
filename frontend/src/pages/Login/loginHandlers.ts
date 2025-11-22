@@ -1,3 +1,7 @@
+import { setAccessToken } from "../../state/authState";
+
+const apiHost = `${window.location.hostname}`;
+
 export function attachLoginHandlers(): void {
     const form = document.getElementById('login-form') as HTMLFormElement;
     const googleBtn = document.getElementById('google-login');
@@ -14,11 +18,22 @@ export function attachLoginHandlers(): void {
         showMessage('Iniciando sesión...', 'info');
 
         try {
-            // Simular llamada a API (reemplazar con tu API real)
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            const res = await fetch(`http://${apiHost}:8080/auth/login`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password }),
+                credentials: "include",
+            });
 
-            // Simular validación
-            if (email === 'admin@nexe.com' && password === 'admin123') {
+            let data: any = {};
+            try {
+                data = await res.json();
+            } catch {
+                data = {};
+            }
+
+            if (res.ok && data.accessToken) {
+                setAccessToken(data.accessToken);
                 showMessage('¡Login exitoso! Redirigiendo...', 'success');
                 setTimeout(() => {
                     window.location.hash = '#dashboard';
