@@ -1,10 +1,15 @@
 all: up
 
 up:
+<<<<<<< Updated upstream
 	docker compose up --build -d
+=======
+	docker-compose up node-base
+	docker-compose up --build -d
+>>>>>>> Stashed changes
 
 down:
-	docker compose down
+	docker-compose down
 
 clean:
 	docker system prune -a

@@ -52,6 +52,17 @@ services:
     networks:
       - backend
 
+  shift-scheduling-service:
+    build: ./shift-scheduling-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      - node-base
+    # volumes:
+    #   - scheduling_data:/app/data
+    networks:
+      - backend
+
 networks:
   backend:
     name: backend
