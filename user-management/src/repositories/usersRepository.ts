@@ -1,8 +1,21 @@
 import db from "../db/sqlite"
 
-export function createUser(username: string, password: string, email: string) {
-	const stmt = db.prepare("INSERT INTO users (username, password, email) VALUES (?, ?, ?)");
-	stmt.run(username, password, email, Math.floor(Date.now() / 1000));
+export function createUser(role: string, password: string, email: string) {
+	const stmt = db.prepare("INSERT INTO users (role, password, email) VALUES (?, ?, ?)");
+	stmt.run(role, password, email, Math.floor(Date.now() / 1000));
+}
+
+export function findUserByUsername(username: string) {
+	const stmt = db.prepare("SELECT * FROM users WHERE username = ?");
+	return stmt.get(username);
+}
+
+export function usernameChanger(id: number, newUsername: string) {
+	const stmt = db.prepare("UPDATE users SET username = ? WHERE id = ?");
+	const user = stmt.run(newUsername, id);
+	if (user.changes === 0) {
+		throw new Error("No user found with the given ID");
+	}
 }
 
 export function emailChanger(id: number, newEmail: string) {
@@ -47,6 +60,29 @@ export function removeUser(id: number) {
 					deleteUsers.run(id).changes;
 
 	return( result );
+}
+
+export async function removeInactiveUsers(inactiveDays : number) {
+	
+	const timeLimit = Math.floor(Date.now() / 1000) - inactiveDays;
+
+	const getUsers = db.prepare("SELECT id FROM users WHERE last_login < ?");
+	const inactiveUsers = getUsers.all(timeLimit);
+
+	let totalRemoved = 0;
+
+	for (const user of inactiveUsers) {
+		totalRemoved += removeUser(user.id);
+
+		const res = await fetch("http://auth-service:8081/deleteAuthUser", {
+			method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: user.id }),
+        credentials: "include", // include cookies
+		})
+	}
+
+	console.log("Total inactive users removed: ", totalRemoved);
 }
 
 export function findAllUsers() {

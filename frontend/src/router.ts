@@ -1,12 +1,16 @@
+import { Login } from './pages/Login/login';
+import { dashboard } from './pages/Dashboard/dashboard';
 import { Home } from "./pages/Home/homeTemplate";
-import { Login } from "./pages/Login/loginTemplate";
-
 
 export function router(route: string): string {
     switch (route) {
-        case "/login":
+        case '/login':
             return Login();
-        case "":
+        case '#dashboard':
+            return dashboard();
+        case '#settings':
+            return '<h1>Settings Page</h1>';
+        case '':
             return Home();
         default:
             return Home();
