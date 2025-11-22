@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test API - Nexe Family Support</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #667eea;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .status.ok {
+            background: #28a745;
+            color: white;
+        }
+        
+        .status.error {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .status.pending {
+            background: #ffc107;
+            color: #333;
+        }
+        
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border 0.3s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            min-height: 50px;
+        }
+        
+        pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        
+        .success {
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .error {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        
+        .info {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        
+        .token-display {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            word-break: break-all;
+            font-family: monospace;
+            font-size: 0.85em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Test API - Nexe Family Support</h1>
+        
+        <div class="info">
+            <strong>ℹ️ Información:</strong> Esta página te permite probar todos los endpoints de la API sin necesitar Postman.
+            El sistema usa autenticación JWT, así que primero necesitas hacer login.
+        </div>
+        
+        <div class="info" style="background: #fff3cd; border-left: 4px solid #ffc107;">
+            <strong>⚠️ NOTA IMPORTANTE:</strong> El <code>user-management-service</code> no está implementado aún.
+            Esto significa que:
+            <ul style="margin: 10px 0 0 20px;">
+                <li>El registro puede devolver <code>{}</code> vacío</li>
+                <li>El login puede fallar porque el usuario no se creó realmente</li>
+                <li>Esto es normal - es parte de lo que tu equipo debe desarrollar</li>
+            </ul>
+            <strong>Solución temporal:</strong> Puedes probar los endpoints públicos (<code>/ping</code>) o seguir las guías para crear tu propio servicio de shift-scheduling.
+        </div>
+
+        <!-- Ping Test -->
+        <div class="section">
+            <h2>1. Health Check <span class="status pending" id="pingStatus">No probado</span></h2>
+            <p>Este endpoint es público y no requiere autenticación.</p>
+            <button onclick="testPing()">🏓 Probar /ping</button>
+            <div class="result" id="pingResult"></div>
+        </div>
+
+        <!-- Gateway Info -->
+        <div class="section">
+            <h2>2. Información del Gateway <span class="status pending" id="infoStatus">No probado</span></h2>
+            <p>Obtener información sobre el sistema.</p>
+            <button onclick="testInfo()">ℹ️ Probar /info</button>
+            <div class="result" id="infoResult"></div>
+        </div>
+
+        <!-- Register -->
+        <div class="section">
+            <h2>3. Registro de Usuario <span class="status pending" id="regStatus">No registrado</span></h2>
+            <p>Crear una nueva cuenta en el sistema.</p>
+            
+            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 10px; margin: 10px 0; border-radius: 5px; font-size: 0.9em;">
+                <strong>⚠️ Requisitos de la contraseña:</strong>
+                <ul style="margin: 10px 0 0 20px;">
+                    <li>✅ Entre <strong>6 y 12 caracteres</strong></li>
+                    <li>✅ Al menos una letra <strong>minúscula</strong> (a-z)</li>
+                    <li>✅ Al menos una letra <strong>MAYÚSCULA</strong> (A-Z)</li>
+                    <li>✅ Al menos un <strong>número</strong> (0-9)</li>
+                    <li>✅ Al menos un <strong>carácter especial</strong>: <code>-!@#$%^&*(),.?":{}|&lt;&gt;</code></li>
+                </ul>
+                <strong>Ejemplos válidos:</strong> <code>Pass123!</code>, <code>Test@2024</code>, <code>Demo#99Aa</code>
+            </div>
+            
+            <input type="email" id="regEmail" placeholder="Email (ej: usuario@example.com)" value="demo@nexe.com">
+            <input type="text" id="regUsername" placeholder="Username (ej: miusuario)" value="demouser">
+            <input type="password" id="regPassword" placeholder="Password (6-12 chars)" value="Demo123!">
+            <button onclick="register()">📝 Registrar Usuario</button>
+            <div class="result" id="regResult"></div>
+        </div>
+
+        <!-- Login -->
+        <div class="section">
+            <h2>4. Login <span class="status pending" id="loginStatus">No logueado</span></h2>
+            <p>Iniciar sesión para obtener un token de acceso.</p>
+            <input type="text" id="loginUsername" placeholder="Username" value="demouser">
+            <input type="password" id="loginPassword" placeholder="Password" value="Demo123!">
+            <button onclick="login()">🔐 Iniciar Sesión</button>
+            <div class="result" id="loginResult"></div>
+            <div id="tokenDisplay"></div>
+        </div>
+
+        <!-- Token Info -->
+        <div class="section" id="tokenSection" style="display: none;">
+            <h2>5. Tu Token Actual</h2>
+            <div class="token-display" id="currentToken">No hay token activo</div>
+            <button onclick="clearToken()">🗑️ Limpiar Token</button>
+        </div>
+
+        <!-- Protected Endpoint Test -->
+        <div class="section">
+            <h2>6. Test de Endpoint Protegido <span class="status pending" id="protectedStatus">Requiere token</span></h2>
+            <p>Este endpoint requiere autenticación (debes hacer login primero).</p>
+            <button onclick="testProtected()">🔒 Probar Endpoint Protegido</button>
+            <div class="result" id="protectedResult"></div>
+        </div>
+    </div>
+
+    <script>
+        let accessToken = localStorage.getItem('accessToken') || null;
+
+        // Mostrar token si existe
+        window.onload = function() {
+            if (accessToken) {
+                showToken(accessToken);
+            }
+        }
+
+        async function testPing() {
+            const resultDiv = document.getElementById('pingResult');
+            const statusSpan = document.getElementById('pingStatus');
+            
+            try {
+                resultDiv.innerHTML = '<p>⏳ Probando...</p>';
+                statusSpan.textContent = 'Probando...';
+                statusSpan.className = 'status pending';
+                
+                const response = await fetch('http://localhost:8080/ping');
+                const data = await response.json();
+                
+                statusSpan.textContent = '✓ OK';
+                statusSpan.className = 'status ok';
+                
+                resultDiv.innerHTML = `
+                    <p class="success">✅ Respuesta exitosa (${response.status})</p>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (error) {
+                statusSpan.textContent = '✗ Error';
+                statusSpan.className = 'status error';
+                resultDiv.innerHTML = `<p class="error">❌ Error: ${error.message}</p>`;
+            }
+        }
+
+        async function testInfo() {
+            const resultDiv = document.getElementById('infoResult');
+            const statusSpan = document.getElementById('infoStatus');
+            
+            try {
+                resultDiv.innerHTML = '<p>⏳ Obteniendo información...</p>';
+                statusSpan.textContent = 'Cargando...';
+                statusSpan.className = 'status pending';
+                
+                const response = await fetch('http://localhost:8080/info');
+                const data = await response.json();
+                
+                statusSpan.textContent = '✓ OK';
+                statusSpan.className = 'status ok';
+                
+                resultDiv.innerHTML = `
+                    <p class="success">✅ Información obtenida (${response.status})</p>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (error) {
+                statusSpan.textContent = '✗ Error';
+                statusSpan.className = 'status error';
+                resultDiv.innerHTML = `<p class="error">❌ Error: ${error.message}</p>`;
+            }
+        }
+
+        async function register() {
+            const email = document.getElementById('regEmail').value;
+            const username = document.getElementById('regUsername').value;
+            const password = document.getElementById('regPassword').value;
+            const resultDiv = document.getElementById('regResult');
+            const statusSpan = document.getElementById('regStatus');
+
+            if (!email || !username || !password) {
+                resultDiv.innerHTML = '<p class="error">❌ Por favor, completa todos los campos</p>';
+                return;
+            }
+
+            try {
+                resultDiv.innerHTML = '<p>⏳ Registrando usuario...</p>';
+                statusSpan.textContent = 'Registrando...';
+                statusSpan.className = 'status pending';
+                
+                const response = await fetch('http://localhost:8080/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, username, password })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok || data.message) {
+                    statusSpan.textContent = '✓ Registrado';
+                    statusSpan.className = 'status ok';
+                    resultDiv.innerHTML = `
+                        <p class="success">✅ Usuario registrado correctamente</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                        <p>Ahora puedes hacer login con estas credenciales.</p>
+                    `;
+                } else {
+                    statusSpan.textContent = '✗ Error';
+                    statusSpan.className = 'status error';
+                    resultDiv.innerHTML = `
+                        <p class="error">❌ Error al registrar</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                }
+            } catch (error) {
+                statusSpan.textContent = '✗ Error';
+                statusSpan.className = 'status error';
+                resultDiv.innerHTML = `<p class="error">❌ Error: ${error.message}</p>`;
+            }
+        }
+
+        async function login() {
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            const resultDiv = document.getElementById('loginResult');
+            const statusSpan = document.getElementById('loginStatus');
+
+            if (!username || !password) {
+                resultDiv.innerHTML = '<p class="error">❌ Por favor, completa todos los campos</p>';
+                return;
+            }
+
+            try {
+                resultDiv.innerHTML = '<p>⏳ Iniciando sesión...</p>';
+                statusSpan.textContent = 'Autenticando...';
+                statusSpan.className = 'status pending';
+                
+                const response = await fetch('http://localhost:8080/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                
+                const data = await response.json();
+                
+                if (data.accessToken) {
+                    accessToken = data.accessToken;
+                    localStorage.setItem('accessToken', accessToken);
+                    
+                    statusSpan.textContent = '✓ Logueado';
+                    statusSpan.className = 'status ok';
+                    
+                    resultDiv.innerHTML = `
+                        <p class="success">✅ Login exitoso! Token guardado.</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                    
+                    showToken(accessToken);
+                } else {
+                    statusSpan.textContent = '✗ Error';
+                    statusSpan.className = 'status error';
+                    resultDiv.innerHTML = `
+                        <p class="error">❌ Error en el login</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                }
+            } catch (error) {
+                statusSpan.textContent = '✗ Error';
+                statusSpan.className = 'status error';
+                resultDiv.innerHTML = `<p class="error">❌ Error: ${error.message}</p>`;
+            }
+        }
+
+        function showToken(token) {
+            document.getElementById('tokenSection').style.display = 'block';
+            document.getElementById('currentToken').textContent = token;
+            document.getElementById('tokenDisplay').innerHTML = `
+                <div class="token-display">
+                    <strong>🎫 Token guardado:</strong> ${token.substring(0, 50)}...
+                </div>
+            `;
+        }
+
+        function clearToken() {
+            accessToken = null;
+            localStorage.removeItem('accessToken');
+            document.getElementById('tokenSection').style.display = 'none';
+            document.getElementById('tokenDisplay').innerHTML = '';
+            document.getElementById('currentToken').textContent = 'No hay token activo';
+            document.getElementById('loginStatus').textContent = 'Token eliminado';
+            document.getElementById('loginStatus').className = 'status pending';
+            alert('Token eliminado. Necesitarás hacer login de nuevo.');
+        }
+
+        async function testProtected() {
+            const resultDiv = document.getElementById('protectedResult');
+            const statusSpan = document.getElementById('protectedStatus');
+
+            if (!accessToken) {
+                resultDiv.innerHTML = '<p class="error">⚠️ Primero debes hacer login para obtener un token!</p>';
+                statusSpan.textContent = 'Sin token';
+                statusSpan.className = 'status error';
+                return;
+            }
+
+            try {
+                resultDiv.innerHTML = '<p>⏳ Probando endpoint protegido...</p>';
+                statusSpan.textContent = 'Probando...';
+                statusSpan.className = 'status pending';
+                
+                // Probamos el endpoint de health que requiere autenticación
+                const response = await fetch('http://localhost:8080/health', {
+                    headers: { 
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    statusSpan.textContent = '✓ Autenticado';
+                    statusSpan.className = 'status ok';
+                    resultDiv.innerHTML = `
+                        <p class="success">✅ Acceso autorizado con tu token</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    statusSpan.textContent = '✗ No autorizado';
+                    statusSpan.className = 'status error';
+                    resultDiv.innerHTML = `
+                        <p class="error">❌ Acceso denegado (${response.status})</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                }
+            } catch (error) {
+                statusSpan.textContent = '✗ Error';
+                statusSpan.className = 'status error';
+                resultDiv.innerHTML = `<p class="error">❌ Error: ${error.message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
