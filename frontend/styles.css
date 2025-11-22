@@ -81,7 +81,15 @@ html {
 
 body {
     color: var(--foreground);
-    background-color: var(--background);
+    background: linear-gradient(180deg, var(--primary) 0%, var(--background) 100%);
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#app {
+    height: 100vh;
+    overflow: hidden;
 }
 
 /* ******************************** */
@@ -95,9 +103,10 @@ nav {
     left: 0;
     right: 0;
     z-index: 10;
-    padding: 30px 80px 0px;
+    padding: 20px 80px 0px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .logo {
@@ -174,37 +183,36 @@ nav .userAccount a:hover svg path {
 /*              Home                */
 /* ******************************** */
 
-#app p {
-
-    max-width: 300px;
-    right: 1rem;
-    margin-top: 12rem;
-}
-
 /* ******************************** */
 /*              Login               */
 /* ******************************** */
 
-.login-info::before,
-.login-info::after {
+.login-container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+.login-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-info::before {
     content: '';
     position: absolute;
     width: 200px;
     height: 200px;
     border-radius: 50%;
     opacity: 0.1;
-}
-
-.login-info::before {
     top: -100px;
     left: -100px;
     background: var(--white);
-}
-
-.login-info::after {
-    bottom: -100px;
-    right: -100px;
-    background: var(--light);
 }
 
 .login-info-content {
@@ -212,6 +220,7 @@ nav .userAccount a:hover svg path {
     position: relative;
     z-index: 1;
     animation: fadeInLeft 0.8s ease-out;
+    text-align: center;
 }
 
 .login-info h1 {
@@ -223,7 +232,7 @@ nav .userAccount a:hover svg path {
 .subtitle {
     font-size: 1.25rem;
     margin-bottom: 3rem;
-	padding-left: 6rem;
+    margin-top: 3rem;
     opacity: 0.95;
     line-height: 1.8;
 }
@@ -265,16 +274,28 @@ nav .userAccount a:hover svg path {
 
 /* ========== LADO DERECHO (Formulario) ========== */
 .login-form-container {
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-top: 2rem;
     align-items: center;
     padding: 4rem 2rem;
-    background: var(--white);	
     position: relative;
     animation: fadeInRight 0.8s ease-out;
-	border-radius: 1rem;
-	margin: 3rem;
+}
+
+.login-form-container::after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    opacity: 0.1;
+    bottom: -200px;
+    right: -100px;
+    transform: translateY(-50%);
+    background: var(--light);
 }
 
 /* Patrón de puntos decorativo (como en la imagen) */
@@ -282,12 +303,12 @@ nav .userAccount a:hover svg path {
     content: '';
     position: absolute;
     top: 50px;
-    right: 50px;
+    right: 70px;
     width: 150px;
     height: 150px;
-    background-image: radial-gradient(circle, var(--accent) 2px, transparent 2px);
+    background-image: radial-gradient(circle, var(--foreground) 2px, transparent 1px);
     background-size: 15px 15px;
-    opacity: 0.1;
+    opacity: 0.3;
 }
 
 .login-card {
@@ -296,6 +317,7 @@ nav .userAccount a:hover svg path {
     background: var(--white);
     padding: 3rem;
     border-radius: 20px;
+    margin-top: 4rem;
     box-shadow: var(--shadow-card);
     position: relative;
     z-index: 1;
@@ -305,6 +327,7 @@ nav .userAccount a:hover svg path {
 .login-header {
     text-align: center;
     margin-bottom: 2.5rem;
+    max-height: 3rem;
 }
 
 .login-header h2 {
@@ -567,8 +590,9 @@ nav .userAccount a:hover svg path {
 }
 
 .login-footer a {
-    color: var(--text-light);
+    color: var(--cream);
     text-decoration: none;
+    opacity: 0.6;
     transition: all 0.3s ease;
 }
 
