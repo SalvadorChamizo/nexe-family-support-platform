@@ -7,6 +7,9 @@ import { authMiddleware } from "./middleware/authMiddleware";
 import authRoutes from "./routes/authRoutes";
 import userRoutes from "./routes/userRoutes";
 
+import springRoutes from "./routes/springRoutes";
+
+
 // Loads .env variables into process.env
 dotenv.config();
 
@@ -18,6 +21,8 @@ app.addHook("preHandler", authMiddleware);
 
 app.register(authRoutes);
 app.register(userRoutes);
+
+app.register(springRoutes);
 
 // CORS
 const whitelist = ["https://localhost:8443"];
