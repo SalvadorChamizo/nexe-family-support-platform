@@ -12,6 +12,14 @@ const publicUrls = [
     "/auth/generate-qr",
     "/auth/google/login",
     "/auth/google/callback",
+	"/medical_data/children",
+	"/medical_data/children/:id",
+	"/medical_data/children/:childId/medical",
+	"/medical_data/children/:childId/medical/:id",
+	"/medical_data/guardians",
+	"/medical_data/guardians/:id",
+	"/medical_data/children/:childId/guardians",
+	"/medical_data/children/:childId/guardians/:id"
 ];
 
 export async function authMiddleware(req: FastifyRequest, reply: FastifyReply) {

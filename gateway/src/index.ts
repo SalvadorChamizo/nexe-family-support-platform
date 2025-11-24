@@ -3,10 +3,11 @@ import dotenv from "dotenv";
 import cors from "@fastify/cors";
 import helmet from "@fastify/helmet";
 
+
 import { authMiddleware } from "./middleware/authMiddleware";
 import authRoutes from "./routes/authRoutes";
 import userRoutes from "./routes/userRoutes";
-
+import childrenRoutes from "./routes/childrenRoutes";
 import springRoutes from "./routes/springRoutes";
 
 
@@ -21,6 +22,7 @@ app.addHook("preHandler", authMiddleware);
 
 app.register(authRoutes);
 app.register(userRoutes);
+app.register(childrenRoutes);
 
 app.register(springRoutes);
 

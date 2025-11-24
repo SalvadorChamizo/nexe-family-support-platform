@@ -1,4 +1,4 @@
-FROM ft_transcendence-node-base:latest
+FROM nexe-node-base:latest
 
 WORKDIR /app
 

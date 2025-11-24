@@ -8,37 +8,37 @@ services:
   # =========================
   # MYSQL DATABASE
   # =========================
-  mysql-db:
-    image: mysql:8.0
-    container_name: mysql-db
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: microdb
-      MYSQL_USER: user
-      MYSQL_PASSWORD: pass
-    ports:
-      - "3306:3306"
-    networks:
-      - backend
-    volumes:
-      - mysql_data:/var/lib/mysql
+  # mysql-db:
+  #   image: mysql:8.0
+  #   container_name: mysql-db
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root
+  #     MYSQL_DATABASE: microdb
+  #     MYSQL_USER: user
+  #     MYSQL_PASSWORD: pass
+  #   ports:
+  #     - "3306:3306"
+  #   networks:
+  #     - backend
+  #   volumes:
+  #     - mysql_data:/var/lib/mysql
 
   # =========================
   # SPRING MICROSERVICE
   # =========================
-  spring-microservice:
-    build: ./service-template-java
-    container_name: spring-microservice
-    ports:
-      - "8085:8080"
-    depends_on:
-      - mysql-db
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/microdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: user
-      SPRING_DATASOURCE_PASSWORD: pass
-    networks:
-      - backend
+  # spring-microservice:
+  #   build: ./service-template-java
+  #   container_name: spring-microservice
+  #   ports:
+  #     - "8085:8080"
+  #   depends_on:
+  #     - mysql-db
+  #   environment:
+  #     SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/microdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+  #     SPRING_DATASOURCE_USERNAME: user
+  #     SPRING_DATASOURCE_PASSWORD: pass
+  #   networks:
+  #     - backend
 
   frontend-dev:
     build:
@@ -62,7 +62,7 @@ services:
     depends_on:
       - node-base
       - auth-service
-      - spring-microservice
+      # - spring-microservice
     networks:
       - backend
 
@@ -88,6 +88,17 @@ services:
     networks:
       - backend
 
+  children-service:
+    build: ./children-family-staff
+    expose:
+      - "8086"
+    depends_on:
+      - node-base
+    volumes:
+      - children_data:/app/data
+    networks:
+      - backend
+
 networks:
   backend:
     name: backend
@@ -97,4 +108,5 @@ volumes:
   mysql_data:
   auth_data:
   user_data:
+  children_data:
   frontend_dist:

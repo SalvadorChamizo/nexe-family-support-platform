@@ -1,11 +1,9 @@
 import Fastify from "fastify";
 import multipart from "@fastify/multipart";
 
-import usersRoutes from "./routes/usersRoutes";
-import { removeInactiveUsers } from "./repositories/usersRepository";
-
-const intervalTime = 24 * 60 * 60 * 1000;
-const inactiveDays = 30 * 24 * 60 * 60;
+import usersRoutes from "./routes/childrenRoutes";
+import medicalInfoRoutes from "./routes/medicalInfoRoutes";
+import guardiansRoutes from "routes/guardiansRoutes";
 
 const app = Fastify({ logger: true });
 
@@ -16,28 +14,10 @@ app.register(multipart, {
 });
 
 app.register(usersRoutes);
+app.register(medicalInfoRoutes);
+app.register(guardiansRoutes);
 
-const PORT = 8082;
-
-app.get("/health", async (req, reply) => {
-  const uptime = process.uptime();
-
-  return reply.status(200).send({
-    service: "user-management-service",
-    status: "ok",
-    uptime: Math.round(uptime),
-    timestamp: new Date().toISOString(),
-    version: "1.0.0",
-  });
-});
-
-setInterval(() => {
-  try {
-    removeInactiveUsers(inactiveDays);
-  } catch (err) {
-    console.error("Error cleaning inactives users:", err);
-  }
-}, intervalTime);
+const PORT = process.env.PORT || 8086;
 
 app.listen({ port: Number(PORT), host: "0.0.0.0" })
-	.then(() => console.log(`user-service listening on port: 8082`));
+	.then(() => console.log(`children-service listening on port: ${PORT}`));

@@ -1,8 +1,8 @@
 all: up
 
 up:
-	docker compose up node-base
-	docker compose up --build -d
+	docker-compose up node-base
+	docker-compose up --build -d
 
 down:
 	docker-compose down
