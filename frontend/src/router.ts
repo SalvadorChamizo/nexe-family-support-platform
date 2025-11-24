@@ -6,10 +6,16 @@ export function router(route: string): string {
     switch (route) {
         case '/login':
             return Login();
-        case '#dashboard':
+        case '/dashboard':
             return dashboard();
-        case '#settings':
+        case '/settings':
             return '<h1>Settings Page</h1>';
+        case '/accounts':
+            return '<h1>Account Management</h1>';
+        case '/children':
+            return '<h1>Children Info</h1>';
+        case '/medicine':
+            return '<h1>Medicine Schedule</h1>'
         case '':
             return Home();
         default:
