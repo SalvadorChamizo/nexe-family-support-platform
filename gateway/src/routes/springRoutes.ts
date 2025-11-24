@@ -5,11 +5,14 @@ import { authMiddleware } from "../middleware/authMiddleware";
 export default async function springRoutes(app: FastifyInstance) {
   app.register(async function (protectedRoutes: FastifyInstance) {
     protectedRoutes.register(fastifyHttpProxy, {
-      upstream: "http://demo-service:8081", // <-- URL de tu microservicio
-      prefix: "/demo",                      // <-- prefijo en el gateway
+      upstream: "http://spring-microservice:8085",
+      prefix: "/medicine",
       rewritePrefix: "",
       async preHandler(req, reply) {
-        // Si quieres protegerlo con JWT:
+
+       
+
+        
         await authMiddleware(req, reply);
 
         if (req.user) {
@@ -19,7 +22,7 @@ export default async function springRoutes(app: FastifyInstance) {
           });
         }
 
-        console.log("Forwarding headers to demo service:", {
+        console.log("Forwarding headers to user service:", {
           "x-user-id": req.user?.id,
           "x-username": req.user?.username,
         });
@@ -27,4 +30,3 @@ export default async function springRoutes(app: FastifyInstance) {
     });
   });
 }
-
