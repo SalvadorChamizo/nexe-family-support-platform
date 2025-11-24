@@ -1,0 +1,112 @@
+services:
+
+  node-base:
+    build:
+      context: ./base-node-image
+    image: nexe-node-base:latest
+
+  # =========================
+  # MYSQL DATABASE
+  # =========================
+  # mysql-db:
+  #   image: mysql:8.0
+  #   container_name: mysql-db
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root
+  #     MYSQL_DATABASE: microdb
+  #     MYSQL_USER: user
+  #     MYSQL_PASSWORD: pass
+  #   ports:
+  #     - "3306:3306"
+  #   networks:
+  #     - backend
+  #   volumes:
+  #     - mysql_data:/var/lib/mysql
+
+  # =========================
+  # SPRING MICROSERVICE
+  # =========================
+  # spring-microservice:
+  #   build: ./service-template-java
+  #   container_name: spring-microservice
+  #   ports:
+  #     - "8085:8080"
+  #   depends_on:
+  #     - mysql-db
+  #   environment:
+  #     SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/microdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+  #     SPRING_DATASOURCE_USERNAME: user
+  #     SPRING_DATASOURCE_PASSWORD: pass
+  #   networks:
+  #     - backend
+
+  frontend-dev:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5173:5173"
+    volumes:
+      - frontend_dist:/app/dist
+    depends_on:
+      - gateway
+    networks:
+      - backend
+
+  gateway:
+    build: ./gateway
+    ports:
+      - "8080:8080"
+    env_file:
+      - ./gateway/.env
+    depends_on:
+      - node-base
+      - auth-service
+      # - spring-microservice
+    networks:
+      - backend
+
+  auth-service:
+    build: ./auth-service
+    expose:
+      - "8081"
+    depends_on:
+      - node-base
+    volumes:
+      - auth_data:/app/data
+    networks:
+      - backend
+
+  user-management-service:
+    build: ./user-management
+    expose:
+      - "8082"
+    depends_on:
+      - node-base
+    volumes:
+      - user_data:/app/data
+    networks:
+      - backend
+
+  children-service:
+    build: ./children-family-staff
+    expose:
+      - "8086"
+    depends_on:
+      - node-base
+    volumes:
+      - children_data:/app/data
+    networks:
+      - backend
+
+networks:
+  backend:
+    name: backend
+    driver: bridge
+
+volumes:
+  mysql_data:
+  auth_data:
+  user_data:
+  children_data:
+  frontend_dist:
