@@ -1,30 +1,32 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Kids;
-import com.example.demo.repository.KidRepository;
+import com.example.demo.entity.NinoEntity;
+import com.example.demo.repository.NinoRepository;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class KidService {
-    private final KidRepository repository;
+public class NinoService {
 
-    public KidService(KidRepository repository) {
+    private final NinoRepository repository;
+
+    public NinoService(NinoRepository repository) {
         this.repository = repository;
     }
 
-    public List<Kids> findAll() {
+    public List<NinoEntity> findAll() {
         return repository.findAll();
     }
 
-    public Optional<Kids> findByID(Long id) {
+    public Optional<NinoEntity> findById(Long id) {
         return repository.findById(id);
     }
 
-    public Kids save(Kids kid) {
-        return repository.save(kid);
+    public NinoEntity save(NinoEntity n) {
+        return repository.save(n);
     }
 
     public void deleteById(Long id) {
