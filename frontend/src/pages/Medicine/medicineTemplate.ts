@@ -21,21 +21,7 @@ export function getMedicineTemplate(): string {
                                 </tr>
                             </thead>
                             <tbody id="med-ninos-body">
-                                <tr>
-                                    <td>1</td>
-                                    <td>Lucas</td>
-                                    <td>Martínez Ruiz</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Ana</td>
-                                    <td>Gómez Pérez</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Dídac</td>
-                                    <td>Soler Bosch</td>
-                                </tr>
+                                <!-- Rellenado por JS -->
                             </tbody>
                         </table>
                     </section>
@@ -52,21 +38,7 @@ export function getMedicineTemplate(): string {
                                 </tr>
                             </thead>
                             <tbody id="med-meds-body">
-                                <tr>
-                                    <td>1</td>
-                                    <td>Paracetamol</td>
-                                    <td>Analgésico</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Ventolín</td>
-                                    <td>Inhalador broncodilatador</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Amoxicilina</td>
-                                    <td>Antibiótico</td>
-                                </tr>
+                                <!-- Rellenado por JS -->
                             </tbody>
                         </table>
                     </section>
@@ -91,39 +63,7 @@ export function getMedicineTemplate(): string {
                                 </tr>
                             </thead>
                             <tbody id="med-eventos-body">
-                                <tr>
-                                    <td>1</td>
-                                    <td>Lucas</td>
-                                    <td>Paracetamol</td>
-                                    <td>2025-02-10 10:00</td>
-                                    <td>Pendiente</td>
-                                    <td>PENDIENTE</td>
-                                    <td>
-                                        <button class="btn-tomado" disabled>Marcar como tomado</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Ana</td>
-                                    <td>Amoxicilina</td>
-                                    <td>2025-02-10 08:00</td>
-                                    <td>2025-02-10 08:01</td>
-                                    <td>TOMADO</td>
-                                    <td>
-                                        <button class="btn-tomado" disabled>Tomado</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Dídac</td>
-                                    <td>Ventolín</td>
-                                    <td>2025-02-10 15:30</td>
-                                    <td>Pendiente</td>
-                                    <td>PENDIENTE</td>
-                                    <td>
-                                        <button class="btn-tomado" disabled>Marcar como tomado</button>
-                                    </td>
-                                </tr>
+                                <!-- Rellenado por JS -->
                             </tbody>
                         </table>
                     </section>
@@ -135,3 +75,4 @@ export function getMedicineTemplate(): string {
         </div>
     `;
 }
+
