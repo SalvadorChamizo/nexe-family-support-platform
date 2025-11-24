@@ -20,14 +20,14 @@ export async function registerController(req: FastifyRequest<{ Body: RegisterBod
    }
 }
 
-export async function loginController(req: FastifyRequest<{ Body: LoginBody }>, reply: FastifyReply) {
-    const { username, password } = req.body;
+export async function loginController(req: FastifyRequest, reply: FastifyReply) {
+    const { email, password } = req.body;
     try {
-        const { user, authUser } = await loginUser(username, password);
+        const { user, authUser } = await loginUser(email, password);
 
         if (authUser.is_2fa_enabled) {
             const token = generateAccessToken(user);
-            return reply.send({ requires2FA: true, userId: user.id, username: user.username, tempToken: token });
+            return reply.send({ requires2FA: true, userId: user.id, email: user.email, tempToken: token });
         }
 
         const { token, refreshToken } = createTokensLogin(user);
@@ -40,7 +40,7 @@ export async function loginController(req: FastifyRequest<{ Body: LoginBody }>, 
             maxAge: 7 * 24 * 60 * 60,
         });
 
-        return reply.send({ accessToken: token, user: { id: user.id, username: user.username, email: user.email, twofa: authUser.is_2fa_enabled },
+        return reply.send({ accessToken: token, user: { id: user.id, email: user.email, twofa: authUser.is_2fa_enabled },
         });
 
     } catch (err: any) {
