@@ -1,17 +1,12 @@
 package com.example.demo.entity;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.antlr.v4.runtime.misc.NotNull;
 
 @Data
 @Entity
 @Table(name="Medicamento")
-public class MedicamentoEntity {
+public class MedicationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

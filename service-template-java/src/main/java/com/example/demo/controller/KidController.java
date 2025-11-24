@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.NinoEntity;
-import com.example.demo.service.NinoService;
+import com.example.demo.entity.KidEntity;
+import com.example.demo.service.KidService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,33 +9,33 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/ninos")
-public class NinoController {
+public class KidController {
 
-    private final NinoService service;
+    private final KidService service;
 
-    public NinoController(NinoService service) {
+    public KidController(KidService service) {
         this.service = service;
     }
 
     @GetMapping
-    public List<NinoEntity> getAll() {
+    public List<KidEntity> getAll() {
         return service.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<NinoEntity> getById(@PathVariable Long id) {
+    public ResponseEntity<KidEntity> getById(@PathVariable Long id) {
         return service.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public NinoEntity create(@RequestBody NinoEntity n) {
+    public KidEntity create(@RequestBody KidEntity n) {
         return service.save(n);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<NinoEntity> update(@PathVariable Long id, @RequestBody NinoEntity n) {
+    public ResponseEntity<KidEntity> update(@PathVariable Long id, @RequestBody KidEntity n) {
         return service.findById(id)
                 .map(existing -> {
                     existing.setKidName(n.getKidName());

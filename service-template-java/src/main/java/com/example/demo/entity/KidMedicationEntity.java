@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "nino_medicamento")
-public class NinoMedicamentoEntity {
+public class KidMedicationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,11 +14,11 @@ public class NinoMedicamentoEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_nino", nullable = false)
-    private NinoEntity nino;
+    private KidEntity nino;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_medicamento", nullable = false)
-    private MedicamentoEntity medicamento;
+    private MedicationEntity medicamento;
 
     @Column(name = "dosis")
     private String dosis;
