@@ -5,6 +5,7 @@
     padding: 25px;
     animation: fadeIn 0.3s ease;
     padding-top: 100px;
+    overflow: scroll;;
 }
 
 .medicine-container h2 {
