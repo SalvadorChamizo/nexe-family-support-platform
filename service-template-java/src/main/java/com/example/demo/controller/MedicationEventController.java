@@ -29,12 +29,12 @@ public class MedicationEventController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/nino/{idNino}")
+    @GetMapping("/kid/{idNino}")
     public List<MedicationEventEntity> getByNino(@PathVariable Long idNino) {
         return service.getByNino(idNino);
     }
 
-    @GetMapping("/medicamento/{idMedicamento}")
+    @GetMapping("/medication/{idMedicamento}")
     public List<MedicationEventEntity> getByMedicamento(@PathVariable Long idMedicamento) {
         return service.getByMedicamento(idMedicamento);
     }
@@ -63,7 +63,7 @@ public class MedicationEventController {
                 : ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/{id}/tomado")
+    @PutMapping("/{id}/taken")
     public ResponseEntity<MedicationEventEntity> marcarComoTomado(@PathVariable Long id) {
         MedicationEventEntity evento = service.marcarComoTomado(id);
 

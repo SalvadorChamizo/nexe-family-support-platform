@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/NinoMedicamento")
+@RequestMapping("/kids-medication")
 public class KidMedicationController {
 
     private final KidMedicationService service;
@@ -22,14 +22,14 @@ public class KidMedicationController {
         return service.getAll();
     }
 
-    @GetMapping("/nino/{idNino}")
+    @GetMapping("/kid/{idNino}")
     public ResponseEntity<KidMedicationEntity> getById(@PathVariable Long id) {
         return service.getById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/medicamento/{idMedicamento}")
+    @GetMapping("/medication/{idMedicamento}")
     public List<KidMedicationEntity> getByNino(@PathVariable Long idNino) {
         return service.getByNino(idNino);
     }

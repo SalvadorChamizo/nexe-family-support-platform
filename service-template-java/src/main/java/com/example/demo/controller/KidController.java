@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/ninos")
+@RequestMapping("/kids")
 public class KidController {
 
     private final KidService service;
