@@ -1,7 +1,5 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Kids;
-import com.example.demo.repository.KidRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,7 +14,7 @@ public class KidService {
         this.service = service;
     }
 
-    public List<Kids> getAllKids() {
+    /*public List<Kids> getAllKids() {
         return .findAll();
-    }
+    }*/
 }

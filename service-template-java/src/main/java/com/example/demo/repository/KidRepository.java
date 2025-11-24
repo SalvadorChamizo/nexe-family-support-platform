@@ -1,7 +1,7 @@
 package com.example.demo.repository;
 
-import com.example.demo.entity.Kids;
+import com.example.demo.entity.NinoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface KidRepository extends JpaRepository<Kids, Long> {
+public interface KidRepository extends JpaRepository<NinoEntity, Long> {
 }
