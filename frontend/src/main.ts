@@ -3,6 +3,7 @@ import { attachLoginHandlers } from "./pages/Login/loginHandlers";
 import { getAccessToken, getUserEmail, refreshAccessToken } from "./state/authState";
 import { getElement } from "./utils/utils";
 import { logoutOutsideLoginPage } from "./pages/Login/logout";
+import { createAccountHandlers } from "./pages/Accounts/accountHandlers";
 
 // Estos dos imports ahora mismo no son estrictamente necesarios porque usas router(),
 // pero los puedes dejar si quieres para futuras mejoras.
@@ -76,6 +77,10 @@ export async function render() {
     // 🔹 Medicine: enganchamos los handlers para rellenar tablas y botones
     if (location.hash === "#/medicine" || location.hash === "#medicine") {
         attachMedicineHandlers();
+    }
+    if (location.hash === "#/accounts")
+    {
+        createAccountHandlers();
     }
 }
 

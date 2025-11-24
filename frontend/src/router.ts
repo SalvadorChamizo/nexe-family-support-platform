@@ -2,6 +2,7 @@ import { Login } from './pages/Login/login';
 import { dashboard } from './pages/Dashboard/dashboard';
 import { Home } from "./pages/Home/homeTemplate";
 import { Medicine } from './pages/Medicine/medicine';
+import { Account } from "./pages/Accounts/account"
 
 export function router(route: string): string {
     switch (route) {
@@ -12,7 +13,7 @@ export function router(route: string): string {
         case '/settings':
             return '<h1>Settings Page</h1>';
         case '/accounts':
-            return '<h1>Account Management</h1>';
+            return Account();
         case '/children':
             return '<h1>Children Info</h1>';
         case '/medicine':
