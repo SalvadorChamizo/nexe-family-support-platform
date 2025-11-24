@@ -13,12 +13,10 @@ public class NinoMedicamentoEntity {
     private Long idNinoMedicamento;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("idNino")
     @JoinColumn(name = "id_nino", nullable = false)
     private NinoEntity nino;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("idMedicamento")
     @JoinColumn(name = "id_medicamento", nullable = false)
     private MedicamentoEntity medicamento;
 

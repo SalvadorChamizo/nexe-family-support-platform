@@ -17,12 +17,10 @@ public class EventoMedicacionEntity {
     private Long idEvento;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("idNino")
     @JoinColumn(name = "id_nino", nullable = false)
     private NinoEntity nino;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("idMedicamento")
     @JoinColumn(name = "id_medicamento", nullable = false)
     private MedicamentoEntity medicamento;
 
