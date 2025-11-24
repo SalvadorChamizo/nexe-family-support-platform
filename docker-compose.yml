@@ -17,12 +17,12 @@ services:
     depends_on:
       - gateway
     networks:
-      - frontend
+      - backend
 
   gateway:
     build: ./gateway
-    expose:
-      - "8080"
+    ports:
+      - "8080:8080"
     env_file:
       - ./gateway/.env
     depends_on:
@@ -30,7 +30,6 @@ services:
       - auth-service
     networks:
       - backend
-      - frontend
 
   auth-service:
     build: ./auth-service
@@ -57,10 +56,6 @@ services:
 networks:
   backend:
     name: backend
-    driver: bridge
-
-  frontend:
-    name: frontend
     driver: bridge
 
 volumes:

@@ -4,6 +4,8 @@ import cookie from "@fastify/cookie";
 
 import authRoutes from "./routes/authRoutes";
 
+import { createUser } from "./repositories/userRepository";
+
 dotenv.config();
 
 const app = Fastify({ logger: true });
@@ -14,6 +16,8 @@ app.register(cookie, {
     secret: process.env.COOKIE_SECRET || "supersecret2",
     parseOptions: {}
 });
+
+createUser();
 
 const PORT = process.env.PORT || 8081;
 

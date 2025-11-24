@@ -14,6 +14,7 @@ export function attachLoginHandlers(): void {
         const email = (document.getElementById('email') as HTMLInputElement).value;
         const password = (document.getElementById('password') as HTMLInputElement).value;
 
+        console.log("Entra");
         // Mostrar loading
         showMessage('Iniciando sesión...', 'info');
 
@@ -44,6 +45,7 @@ export function attachLoginHandlers(): void {
         } catch (error) {
             showMessage('Error al iniciar sesión', 'error');
         }
+        console.log("Sale por aquí")
     });
 
     // Manejar login con Google

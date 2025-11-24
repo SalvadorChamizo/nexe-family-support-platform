@@ -7,7 +7,7 @@ export function initAdmin() {
   const admin = stmt.get();
 
   if (!admin) {
-    const passwordHash = bcrypt.hashSync("Admin123!", 10); // temporary password
+    const passwordHash = bcrypt.hashSync("Admin123!", 10);
 
     db.prepare(`
       INSERT INTO users (email, password, role)
