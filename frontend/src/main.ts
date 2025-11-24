@@ -4,12 +4,12 @@ import { getAccessToken, getUserEmail, refreshAccessToken } from "./state/authSt
 import { getElement } from "./utils/utils";
 import { logoutOutsideLoginPage } from "./pages/Login/logout";
 
-// main.ts (ejemplo)
+// Estos dos imports ahora mismo no son estrictamente necesarios porque usas router(),
+// pero los puedes dejar si quieres para futuras mejoras.
 import { Login } from "./pages/Login/login";
 
 import { Medicine } from "./pages/Medicine/medicine";
 import { attachMedicineHandlers } from "./pages/Medicine/medicineHandler";
-
 
 export function attachDropdownHandlers() {
     const accountToggle = document.getElementById("account-toggle");
@@ -36,12 +36,13 @@ export async function render() {
 
     const app = document.getElementById("app");
     if (app) {
+        // route será por ejemplo "/login", "/medicine", etc.
         const route = window.location.hash.slice(1);
         app.innerHTML = router(route);
     }
 
     const token = getAccessToken();
-    if (1) {
+    if (1) { // aquí antes usabas token, ahora está forzado, lo dejo igual que tú
         const navbar = document.getElementById("navbar");
         if (navbar) {
             navbar.style.display = "flex";
@@ -58,18 +59,23 @@ export async function render() {
         logoutBtn.onclick = logoutOutsideLoginPage;
     } else {
         const navbar = document.getElementById("navbar");
-            if (navbar) {
-                navbar.style.display = "none";
-            }
-            const accountText = document.getElementById("account-text");
-            if (accountText) {
-                accountText.textContent = "Account";
-            }
+        if (navbar) {
+            navbar.style.display = "none";
+        }
+        const accountText = document.getElementById("account-text");
+        if (accountText) {
+            accountText.textContent = "Account";
+        }
     }
 
-    if (location.hash === "#/login")
-    {
+    // 🔹 Aquí se enganchan los handlers según la página
+    if (location.hash === "#/login" || location.hash === "#login") {
         attachLoginHandlers();
+    } 
+    
+    // 🔹 Medicine: enganchamos los handlers para rellenar tablas y botones
+    if (location.hash === "#/medicine" || location.hash === "#medicine") {
+        attachMedicineHandlers();
     }
 }
 
