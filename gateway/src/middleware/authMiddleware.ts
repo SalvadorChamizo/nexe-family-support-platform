@@ -12,6 +12,8 @@ const publicUrls = [
     "/auth/generate-qr",
     "/auth/google/login",
     "/auth/google/callback",
+    "/medicine/ninos/id",
+    "/medicine/swagger-ui/index.html#/"
 ];
 
 export async function authMiddleware(req: FastifyRequest, reply: FastifyReply) {
