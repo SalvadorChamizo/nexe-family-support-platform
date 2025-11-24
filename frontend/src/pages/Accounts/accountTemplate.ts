@@ -1,46 +1,17 @@
-export function getCreateAccount(): string {
+export function getCreateAccountTemplate(): string {
     return `
-        <div class="login-container">
-            <!-- Lado izquierdo: Información -->
-            <div class="login-info">
-                <div class="login-info-content">
-                    <h1>Gestión de Cuentas</h1>
-                    <p class="subtitle">Crea nuevas cuentas para el personal, familias y administradores</p>
-                    
-                    <div class="features">
-                        <div class="feature-item">
-                            <div class="icon">👨‍💼</div>
-                            <div>
-                                <strong>Personal</strong> - Acceso a herramientas de gestión
-                            </div>
-                        </div>
-                        <div class="feature-item">
-                            <div class="icon">👨‍👩‍👧</div>
-                            <div>
-                                <strong>Tutores</strong> - Portal familiar personalizado
-                            </div>
-                        </div>
-                        <div class="feature-item">
-                            <div class="icon">⚙️</div>
-                            <div>
-                                <strong>Administradores</strong> - Control total del sistema
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Lado derecho: Selector de tipo de cuenta -->
-            <div class="login-form-container">
-                <div class="login-card">
+        <div id="account-container" class="account-container">
+            <h1>Gestión de Cuentas</h1>
+            <p class="account-subtitle">Crea nuevas cuentas para el personal, familias y administradores</p>
+            <div class="create-account-container">
+                <div class="account-card">
                     <div class="login-header">
                         <h2>Crear Nueva Cuenta</h2>
                         <p>Selecciona el tipo de cuenta a crear</p>
                     </div>
-
                     <div class="account-type-selector">
                         <!-- Staff Account -->
-                        <button class="account-type-card" data-account-type="staff">
+                        <button id="addStaffBtn" class="account-type-card" data-account-type="staff">
                             <div class="account-type-icon">
                                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z" fill="currentColor"/>
@@ -49,7 +20,7 @@ export function getCreateAccount(): string {
                             <h3>Cuenta de Personal</h3>
                             <p>Para empleados y trabajadores del centro</p>
                         </button>
-
+    
                         <!-- Guardian Account -->
                         <button class="account-type-card" data-account-type="guardian">
                             <div class="account-type-icon">
@@ -60,7 +31,7 @@ export function getCreateAccount(): string {
                             <h3>Cuenta de Tutor</h3>
                             <p>Para padres y tutores legales</p>
                         </button>
-
+    
                         <!-- Admin Account -->
                         <button class="account-type-card" data-account-type="admin">
                             <div class="account-type-icon">
@@ -72,11 +43,13 @@ export function getCreateAccount(): string {
                             <p>Acceso completo al sistema</p>
                         </button>
                     </div>
-
+    
                     <div class="account-back-link">
                         <a href="#/dashboard">← Volver al Dashboard</a>
                     </div>
                 </div>
+        </div>
+
             </div>
         </div>
     `;
@@ -84,33 +57,10 @@ export function getCreateAccount(): string {
 
 export function getCreateStaffAccount(): string {
     return `
-        <div class="login-container">
-            <!-- Lado izquierdo: Información -->
-            <div class="login-info">
-                <div class="login-info-content">
-                    <h1>Nueva Cuenta de Personal</h1>
-                    <p class="subtitle">Crea una cuenta para un miembro del equipo</p>
-                    
-                    <div class="features">
-                        <div class="feature-item">
-                            <div class="icon">✓</div>
-                            <div>Acceso a herramientas de gestión diaria</div>
-                        </div>
-                        <div class="feature-item">
-                            <div class="icon">✓</div>
-                            <div>Permisos de visualización y edición</div>
-                        </div>
-                        <div class="feature-item">
-                            <div class="icon">✓</div>
-                            <div>Reportes y seguimiento de casos</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Lado derecho: Formulario -->
             <div class="login-form-container">
-                <div class="login-card">
+                <h1>Nueva Cuenta de Personal</h1>
+                <p class="subtitle">Crea una cuenta para un miembro del equipo</p>
+                <div class="account-card">
                     <div class="login-header">
                         <h2>Crear Cuenta de Personal</h2>
                         <p>Complete la información del empleado</p>
@@ -208,7 +158,6 @@ export function getCreateStaffAccount(): string {
                     <div id="staff-message" class="message hidden"></div>
                 </div>
             </div>
-        </div>
     `;
 }
 

@@ -84,12 +84,10 @@ body {
     background: linear-gradient(180deg, var(--primary) 0%, var(--background) 100%);
     margin: 0;
     padding: 0;
-    overflow: hidden;
 }
 
 #app {
-    height: 100vh;
-    overflow: hidden;
+    min-height: calc(100vh - 80px);
 }
 
 /* ******************************** */
@@ -98,15 +96,13 @@ body {
 
 /* Navbar styles - Start */
 nav {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    position: relative;
     z-index: 10;
-    padding: 20px 80px 0px;
+    padding: 20px 80px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 80px;
 }
 
 .logo {
@@ -364,7 +360,6 @@ nav .userAccount a:hover svg path {
     box-shadow: var(--shadow-card);
     position: relative;
     z-index: 1;
-	
 }
 
 .login-header {
@@ -647,7 +642,6 @@ nav .userAccount a:hover svg path {
 /* ========== ACCOUNT TYPE SELECTOR ========== */
 .account-type-selector {
     display: flex;
-    flex-direction: column;
     gap: 1rem;
     margin-bottom: 1.5rem;
 }
@@ -1099,4 +1093,51 @@ nav .userAccount a:hover svg path {
     .stats-section {
         grid-template-columns: repeat(2, 1fr);
     }
+}
+
+/******************************/
+/*          Account           */
+/******************************/
+
+.account-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.create-account-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 2rem;
+    position: relative;
+    animation: fadeInRight 0.8s ease-out;
+}
+
+.account-card {
+    width: 100%;
+    max-width: 1200px;
+    background: var(--white);
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: var(--shadow-card);
+    position: relative;
+    z-index: 1;
+	
+}
+
+.account-subtitle {
+    font-size: 1.25rem;
+    margin-top: 3rem;
+    opacity: 0.95;
+}
+
+.account-container h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }

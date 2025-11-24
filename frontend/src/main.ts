@@ -3,6 +3,7 @@ import { attachLoginHandlers } from "./pages/Login/loginHandlers";
 import { getAccessToken, getUserEmail, refreshAccessToken } from "./state/authState";
 import { getElement } from "./utils/utils";
 import { logoutOutsideLoginPage } from "./pages/Login/logout";
+import { createAccountHandlers } from "./pages/Accounts/accountHandlers";
 
 export function attachDropdownHandlers() {
     const accountToggle = document.getElementById("account-toggle");
@@ -63,6 +64,10 @@ export async function render() {
     if (location.hash === "#/login")
     {
         attachLoginHandlers();
+    }
+    if (location.hash === "#/accounts")
+    {
+        createAccountHandlers();
     }
 }
 
