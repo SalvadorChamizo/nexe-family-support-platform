@@ -116,3 +116,4 @@ docker-compose.override.yml
 *.swp
 *.bak
 *.orig
+.idea
