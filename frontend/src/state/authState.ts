@@ -1,4 +1,5 @@
 let accessToken: string | null = null;
+let userEmail: string = "Logged in";
 
 const apiHost = `${window.location.hostname}`;
 
@@ -10,6 +11,14 @@ export function setTemp2FA(token: string, username: string, userId: number) {
     tempToken = token;
     tempUsername = username;
     tempUserId = userId;
+}
+
+export function setUserEmail(email: string) {
+    userEmail = email;
+}
+
+export function getUserEmail(): string {
+    return userEmail;
 }
 
 export function setAccessToken(token: string) {

@@ -1,4 +1,7 @@
-import { setAccessToken } from "../../state/authState";
+import { setAccessToken, setUserEmail, getUserEmail } from "../../state/authState";
+import { getElement } from "../../utils/utils";
+import { attachDropdownHandlers } from "../../main";
+import { logoutOutsideLoginPage } from "./logout";
 
 const apiHost = `${window.location.hostname}`;
 
@@ -14,7 +17,6 @@ export function attachLoginHandlers(): void {
         const email = (document.getElementById('email') as HTMLInputElement).value;
         const password = (document.getElementById('password') as HTMLInputElement).value;
 
-        console.log("Entra");
         // Mostrar loading
         showMessage('Iniciando sesión...', 'info');
 
@@ -35,6 +37,21 @@ export function attachLoginHandlers(): void {
 
             if (res.ok && data.accessToken) {
                 setAccessToken(data.accessToken);
+                setUserEmail(data.user.email);
+                const navbar = document.getElementById("navbar");
+                if (navbar) {
+                    navbar.style.display = "flex";
+                }
+                const accountText = document.getElementById("account-text");
+                if (accountText) {
+                    accountText.textContent = `${getUserEmail()}`;
+                }
+                getElement("#account-dropdown").classList.remove("hidden");
+                
+                // Attach dropdown handlers after showing the dropdown
+                attachDropdownHandlers();
+                const logoutBtn = document.querySelector<HTMLAnchorElement>("#logout-btn")!;
+                logoutBtn.onclick = logoutOutsideLoginPage;
                 showMessage('¡Login exitoso! Redirigiendo...', 'success');
                 setTimeout(() => {
                     window.location.hash = '#dashboard';
@@ -45,7 +62,6 @@ export function attachLoginHandlers(): void {
         } catch (error) {
             showMessage('Error al iniciar sesión', 'error');
         }
-        console.log("Sale por aquí")
     });
 
     // Manejar login con Google
