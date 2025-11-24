@@ -1,55 +1,55 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.EventoMedicacionEntity;
-import com.example.demo.service.EventoMedicacionService;
+import com.example.demo.entity.MedicationEventEntity;
+import com.example.demo.service.MedicationEventService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/eventos-medicacion")
-public class EventoMedicacionController {
+@RequestMapping("/medication-event")
+public class MedicationEventController {
 
-    private final EventoMedicacionService service;
+    private final MedicationEventService service;
 
-    public EventoMedicacionController(EventoMedicacionService service) {
+    public MedicationEventController(MedicationEventService service) {
         this.service = service;
     }
 
     @GetMapping
-    public List<EventoMedicacionEntity> getAll() {
+    public List<MedicationEventEntity> getAll() {
         return service.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EventoMedicacionEntity> getById(@PathVariable Long id) {
+    public ResponseEntity<MedicationEventEntity> getById(@PathVariable Long id) {
         return service.getById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/nino/{idNino}")
-    public List<EventoMedicacionEntity> getByNino(@PathVariable Long idNino) {
+    public List<MedicationEventEntity> getByNino(@PathVariable Long idNino) {
         return service.getByNino(idNino);
     }
 
     @GetMapping("/medicamento/{idMedicamento}")
-    public List<EventoMedicacionEntity> getByMedicamento(@PathVariable Long idMedicamento) {
+    public List<MedicationEventEntity> getByMedicamento(@PathVariable Long idMedicamento) {
         return service.getByMedicamento(idMedicamento);
     }
 
     @PostMapping
-    public EventoMedicacionEntity create(@RequestBody EventoMedicacionEntity evento) {
+    public MedicationEventEntity create(@RequestBody MedicationEventEntity evento) {
         return service.create(evento);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EventoMedicacionEntity> update(
+    public ResponseEntity<MedicationEventEntity> update(
             @PathVariable Long id,
-            @RequestBody EventoMedicacionEntity evento) {
+            @RequestBody MedicationEventEntity evento) {
 
-        EventoMedicacionEntity updated = service.update(id, evento);
+        MedicationEventEntity updated = service.update(id, evento);
 
         return updated != null
                 ? ResponseEntity.ok(updated)
@@ -64,8 +64,8 @@ public class EventoMedicacionController {
     }
 
     @PutMapping("/{id}/tomado")
-    public ResponseEntity<EventoMedicacionEntity> marcarComoTomado(@PathVariable Long id) {
-        EventoMedicacionEntity evento = service.marcarComoTomado(id);
+    public ResponseEntity<MedicationEventEntity> marcarComoTomado(@PathVariable Long id) {
+        MedicationEventEntity evento = service.marcarComoTomado(id);
 
         return evento != null
                 ? ResponseEntity.ok(evento)

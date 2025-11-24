@@ -1,9 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.EstadoEventoEnum;
-import com.example.demo.entity.EventoMedicacionEntity;
-import com.example.demo.entity.NinoMedicamentoEntity;
-import com.example.demo.repository.EventoMedicacionRepository;
+import com.example.demo.entity.EventStatusEnum;
+import com.example.demo.entity.MedicationEventEntity;
+import com.example.demo.repository.MedicationEventRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -12,34 +11,34 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class EventoMedicacionService {
-    private final EventoMedicacionRepository repository;
+public class MedicationEventService {
+    private final MedicationEventRepository repository;
 
-    public EventoMedicacionService(EventoMedicacionRepository repository){
+    public MedicationEventService(MedicationEventRepository repository){
         this.repository = repository;
     }
 
-    public List<EventoMedicacionEntity> getAll() {
+    public List<MedicationEventEntity> getAll() {
         return repository.findAll();
     }
 
-    public Optional<EventoMedicacionEntity> getById(Long id) {
+    public Optional<MedicationEventEntity> getById(Long id) {
         return repository.findById(id);
     }
 
-    public List<EventoMedicacionEntity> getByNino(Long idNino) {
+    public List<MedicationEventEntity> getByNino(Long idNino) {
         return repository.findByNino_IdNinos(idNino);
     }
 
-    public List<EventoMedicacionEntity> getByMedicamento(Long id) {
+    public List<MedicationEventEntity> getByMedicamento(Long id) {
         return repository.findByMedicamento_IdMedicamento(id);
     }
 
-    public EventoMedicacionEntity create(EventoMedicacionEntity relacion) {
+    public MedicationEventEntity create(MedicationEventEntity relacion) {
         return repository.save(relacion);
     }
 
-    public EventoMedicacionEntity update(Long id, EventoMedicacionEntity datos) {
+    public MedicationEventEntity update(Long id, MedicationEventEntity datos) {
         return repository.findById(id).map(e -> {
             e.setNino(datos.getNino());
             e.setMedicamento(datos.getMedicamento());
@@ -60,11 +59,11 @@ public class EventoMedicacionService {
         return false;
     }
 
-    public EventoMedicacionEntity marcarComoTomado(Long id) {
+    public MedicationEventEntity marcarComoTomado(Long id) {
         return repository.findById(id).map(e -> {
             e.setFechaTomada(LocalDate.now());
             e.setHoraTomada(LocalTime.now());
-            e.setEstado(EstadoEventoEnum.administrada);
+            e.setEstado(EventStatusEnum.administrada);
             return repository.save(e);
         }).orElse(null);
     }

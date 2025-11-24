@@ -1,6 +1,6 @@
 package com.example.demo.DTO.EventoMedicacion;
 
-import com.example.demo.entity.EstadoEventoEnum;
+import com.example.demo.entity.EventStatusEnum;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -19,5 +19,5 @@ public class EventoMedicacionDTO {
     private LocalDate fechaTomada;
     private LocalTime horaTomada;
 
-    private EstadoEventoEnum estado;
+    private EventStatusEnum estado;
 }

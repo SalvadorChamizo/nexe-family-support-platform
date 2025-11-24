@@ -1,6 +1,6 @@
 package com.example.demo.entity;
 
-public enum EstadoEventoEnum {
+public enum EventStatusEnum {
     pendiente,
     administrada,
     omitida

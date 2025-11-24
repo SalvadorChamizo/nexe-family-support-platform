@@ -1,8 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.MedicamentoEntity;
-import com.example.demo.entity.NinoMedicamentoEntity;
-import com.example.demo.service.NinoMedicamentoService;
+import com.example.demo.entity.KidMedicationEntity;
+import com.example.demo.service.KidMedicationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,39 +9,39 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/NinoMedicamento")
-public class NinoMedicamentoController {
+public class KidMedicationController {
 
-    private final NinoMedicamentoService service;
+    private final KidMedicationService service;
 
-    public NinoMedicamentoController(NinoMedicamentoService service) {
+    public KidMedicationController(KidMedicationService service) {
         this.service = service;
     }
 
     @GetMapping
-    public List<NinoMedicamentoEntity> getAll() {
+    public List<KidMedicationEntity> getAll() {
         return service.getAll();
     }
 
     @GetMapping("/nino/{idNino}")
-    public ResponseEntity<NinoMedicamentoEntity> getById(@PathVariable Long id) {
+    public ResponseEntity<KidMedicationEntity> getById(@PathVariable Long id) {
         return service.getById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/medicamento/{idMedicamento}")
-    public List<NinoMedicamentoEntity> getByNino(@PathVariable Long idNino) {
+    public List<KidMedicationEntity> getByNino(@PathVariable Long idNino) {
         return service.getByNino(idNino);
     }
 
     @PostMapping
-    public NinoMedicamentoEntity create(@RequestBody NinoMedicamentoEntity nM) {
+    public KidMedicationEntity create(@RequestBody KidMedicationEntity nM) {
         return service.create(nM);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<NinoMedicamentoEntity> update ( @PathVariable Long id, @RequestBody NinoMedicamentoEntity nM) {
-        NinoMedicamentoEntity updated = service.update(id, nM);
+    public ResponseEntity<KidMedicationEntity> update (@PathVariable Long id, @RequestBody KidMedicationEntity nM) {
+        KidMedicationEntity updated = service.update(id, nM);
         return updated != null ?
                 ResponseEntity.ok(updated) :
                 ResponseEntity.notFound().build();

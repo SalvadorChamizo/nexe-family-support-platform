@@ -9,7 +9,7 @@ import java.time.LocalTime;
 @Data
 @Entity
 @Table(name = "evento_medicacion")
-public class EventoMedicacionEntity {
+public class MedicationEventEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,11 +18,11 @@ public class EventoMedicacionEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_nino", nullable = false)
-    private NinoEntity nino;
+    private KidEntity nino;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_medicamento", nullable = false)
-    private MedicamentoEntity medicamento;
+    private MedicationEntity medicamento;
 
     @Column(name = "fecha_programada", nullable = false)
     private LocalDate fechaProgramada;
@@ -38,7 +38,7 @@ public class EventoMedicacionEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "estado", nullable = false)
-    private EstadoEventoEnum estado;
+    private EventStatusEnum estado;
 
 }
 

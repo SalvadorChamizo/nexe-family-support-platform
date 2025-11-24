@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.MedicamentoEntity;
-import com.example.demo.service.MedicamentoService;
+import com.example.demo.entity.MedicationEntity;
+import com.example.demo.service.MedicationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,35 +9,35 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/medicamentos")
-public class MedicamentoController {
+public class MedicationController {
 
-    private final MedicamentoService service;
+    private final MedicationService service;
 
-    public MedicamentoController(MedicamentoService service) {
+    public MedicationController(MedicationService service) {
         this.service = service;
     }
 
     @GetMapping
-    public List<MedicamentoEntity> getAll() {
+    public List<MedicationEntity> getAll() {
         return service.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MedicamentoEntity> getById(@PathVariable Long id) {
+    public ResponseEntity<MedicationEntity> getById(@PathVariable Long id) {
         return service.getById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public MedicamentoEntity create(@RequestBody MedicamentoEntity m) {
+    public MedicationEntity create(@RequestBody MedicationEntity m) {
         return service.create(m);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MedicamentoEntity> update(@PathVariable Long id, @RequestBody MedicamentoEntity m) {
+    public ResponseEntity<MedicationEntity> update(@PathVariable Long id, @RequestBody MedicationEntity m) {
 
-        MedicamentoEntity updated = service.update(id, m);
+        MedicationEntity updated = service.update(id, m);
         return (updated != null
                 ? ResponseEntity.ok(updated)
                 : ResponseEntity.notFound().build());

@@ -1,42 +1,42 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.NinoMedicamentoEntity;
-import com.example.demo.repository.NinoMedicamentoRepository;
+import com.example.demo.entity.KidMedicationEntity;
+import com.example.demo.repository.KidMedicationRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class NinoMedicamentoService {
+public class KidMedicationService {
 
-    private final NinoMedicamentoRepository repository;
+    private final KidMedicationRepository repository;
 
-    public NinoMedicamentoService(NinoMedicamentoRepository repository) {
+    public KidMedicationService(KidMedicationRepository repository) {
         this.repository = repository;
     }
 
-    public List<NinoMedicamentoEntity> getAll() {
+    public List<KidMedicationEntity> getAll() {
         return repository.findAll();
     }
 
-    public Optional<NinoMedicamentoEntity> getById(Long id) {
+    public Optional<KidMedicationEntity> getById(Long id) {
         return repository.findById(id);
     }
 
-    public List<NinoMedicamentoEntity> getByNino(Long idNino) {
+    public List<KidMedicationEntity> getByNino(Long idNino) {
         return repository.findByNino_IdNinos(idNino);
     }
 
-    public List<NinoMedicamentoEntity> getByMedicamento(Long idMedicamento) {
+    public List<KidMedicationEntity> getByMedicamento(Long idMedicamento) {
         return repository.findByMedicamento_IdMedicamento(idMedicamento);
     }
 
-    public NinoMedicamentoEntity create(NinoMedicamentoEntity relacion) {
+    public KidMedicationEntity create(KidMedicationEntity relacion) {
         return repository.save(relacion);
     }
 
-    public NinoMedicamentoEntity update(Long id, NinoMedicamentoEntity datos) {
+    public KidMedicationEntity update(Long id, KidMedicationEntity datos) {
         return repository.findById(id).map(r -> {
             r.setNino(datos.getNino());
             r.setMedicamento(datos.getMedicamento());
