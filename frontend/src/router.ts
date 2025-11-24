@@ -1,6 +1,7 @@
 import { Login } from './pages/Login/login';
 import { dashboard } from './pages/Dashboard/dashboard';
 import { Home } from "./pages/Home/homeTemplate";
+import { Medicine } from './pages/Medicine/medicine';
 
 export function router(route: string): string {
     switch (route) {
@@ -15,7 +16,7 @@ export function router(route: string): string {
         case '/children':
             return '<h1>Children Info</h1>';
         case '/medicine':
-            return '<h1>Medicine Schedule</h1>'
+            return Medicine();
         case '':
             return Home();
         default:

@@ -4,6 +4,13 @@ import { getAccessToken, getUserEmail, refreshAccessToken } from "./state/authSt
 import { getElement } from "./utils/utils";
 import { logoutOutsideLoginPage } from "./pages/Login/logout";
 
+// main.ts (ejemplo)
+import { Login } from "./pages/Login/login";
+
+import { Medicine } from "./pages/Medicine/medicine";
+import { attachMedicineHandlers } from "./pages/Medicine/medicineHandler";
+
+
 export function attachDropdownHandlers() {
     const accountToggle = document.getElementById("account-toggle");
     const accountDropdown = document.getElementById("account-dropdown");
@@ -34,7 +41,7 @@ export async function render() {
     }
 
     const token = getAccessToken();
-    if (token) {
+    if (1) {
         const navbar = document.getElementById("navbar");
         if (navbar) {
             navbar.style.display = "flex";

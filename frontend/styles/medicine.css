@@ -1,0 +1,133 @@
+/**************************************
+ *  LAYOUT GENERAL
+ **************************************/
+.medicine-container {
+    padding: 25px;
+    animation: fadeIn 0.3s ease;
+    padding-top: 100px;
+}
+
+.medicine-container h2 {
+    font-size: 26px;
+    margin-bottom: 20px;
+    color: #1e3a8a;
+    font-weight: 700;
+}
+
+.layout {
+    display: flex;
+    gap: 25px;
+    align-items: flex-start;
+}
+
+.column {
+    flex: 1;
+}
+
+
+.card {
+    background: white;
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+    border: 1px solid #e5e7eb;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+thead {
+    background: #f3f4f6;
+}
+
+thead th {
+    font-weight: 600;
+    color: #1f2937;
+}
+
+th, td {
+    padding: 10px;
+    color: black;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+}
+
+/* Hover fila */
+tbody tr:hover {
+    background: #f9fafb;
+}
+
+button.btn-tomado {
+    background: #2563eb;
+    border: none;
+    padding: 6px 10px;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: 0.2s;
+}
+
+button.btn-tomado:hover {
+    background: #1e40af;
+}
+
+button.btn-tomado[disabled] {
+    background: #9ca3af;
+    cursor: default;
+}
+
+/**************************************
+ *  MENSAJES (como login)
+ **************************************/
+.message {
+    margin-top: 15px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    display: block;
+}
+
+.message.success {
+    background: #d1fae5;
+    border: 1px solid #10b981;
+    color: #065f46;
+}
+
+.message.error {
+    background: #fee2e2;
+    border: 1px solid #ef4444;
+    color: #991b1b;
+}
+
+.message.info {
+    background: #e0f2fe;
+    border: 1px solid #0284c7;
+    color: #075985;
+}
+
+.hidden {
+    display: none;
+}
+
+/**************************************
+ *  ANIMACIÓN
+ **************************************/
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/**************************************
+ *  RESPONSIVE
+ **************************************/
+@media (max-width: 900px) {
+    .layout {
+        flex-direction: column;
+    }
+}
