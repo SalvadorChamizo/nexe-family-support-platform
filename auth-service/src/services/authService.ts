@@ -27,29 +27,31 @@ export async function registerUser(username: string, password: string, email: st
         throw new Error(await register.text());
 }
 
-export async function loginUser(username: string, password: string) {
-    const res = await fetch("http://user-management-service:8082/getUserByName", {
+export async function loginUser(email: string, password: string) {
+    const res = await fetch("http://user-management-service:8082/getUserByEmail", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username }),
+        body: JSON.stringify({ email }),
     });
 
     const user = await res.json();
 
+    console.log("user: ", user);
     if (!user.id)
-        throw new Error("Invalid username or password");
+        throw new Error("Invalid email or password");
 
     const passwordControl = await fetch("http://user-management-service:8082/checkPassword", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }),
     });
     if (!passwordControl.ok)
-        throw new Error("Invalid username or password");
+        throw new Error("Invalid email or password");
 
+    console.log("passwordControl: ", passwordControl);
     const authUser = findUserById(user.id);
     if (!authUser.id)
-        throw new Error("Invalid username or password");
+        throw new Error("Invalid email or password");
 
     return ({ user, authUser });
 }
